@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours d'Anglais L1-S2 - ISICA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0F1F3D 0%, #1a2e5c 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(15, 31, 61, 0.3);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0F1F3D 0%, #1a2e5c 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav-tab {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            color: #0F1F3D;
+            border-bottom-color: #0F1F3D;
+        }
+
+        .nav-tab:hover {
+            color: #0F1F3D;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0F1F3D;
+            box-shadow: 0 0 0 3px rgba(15, 31, 61, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0F1F3D 0%, #1a2e5c 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(15, 31, 61, 0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #0F1F3D;
+            background: #f9f9f9;
+        }
+
+        .quiz-option input[type="radio"] {
+            width: auto;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .admin-login {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+        }
+
+        .admin-table th {
+            background: #f0f0f0;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .admin-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .btn-approve {
+            background: #28a745;
+        }
+
+        .btn-approve:hover {
+            background: #218838;
+        }
+
+        .btn-reject {
+            background: #dc3545;
+        }
+
+        .btn-reject:hover {
+            background: #c82333;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+        }
+
+        .secret-input {
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .pdf-container {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .pdf-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .admin-table {
+                font-size: 11px;
+            }
+
+            .admin-table th, .admin-table td {
+                padding: 6px;
+            }
+
+            .action-buttons {
+                gap: 3px;
+            }
+
+            .btn-small {
+                min-width: 60px;
+            }
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(15, 31, 61, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid #0F1F3D;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Anglais L1-S2</h1>
+            <p>ISICA — Institut Supérieur d'Informatique et de Communication Appliquée</p>
+        </div>
+
+        <div class="content">
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('student')">📝 Étudiant</button>
+                <button class="nav-tab" onclick="switchTab('verify')">✓ Vérification</button>
+                <button class="nav-tab" onclick="switchTab('access')">🔑 Accès</button>
+                <button class="nav-tab" onclick="switchTab('admin')">⚙️ Admin</button>
+            </div>
+
+            <!-- TAB 1: STUDENT FORM -->
+            <div id="student" class="tab-content active">
+                <h2 style="margin-bottom: 20px; font-size: 22px; color: #0F1F3D;">Formulaire d'inscription</h2>
+                
+                <div id="student-message" class="hidden"></div>
+
+                <form id="studentForm">
+                    <div class="form-group">
+                        <label for="nom">Nom *</label>
+                        <input type="text" id="nom" required placeholder="Ex: AFANVI">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prenom">Prénom *</label>
+                        <input type="text" id="prenom" required placeholder="Ex: Afi Vénissa">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="groupe">Groupe *</label>
+                        <select id="groupe" required>
+                            <option value="">-- Sélectionner votre groupe --</option>
+                            <option value="1">Groupe 1</option>
+                            <option value="2">Groupe 2</option>
+                            <option value="3">Groupe 3</option>
+                            <option value="4">Groupe 4</option>
+                            <option value="5">Groupe 5</option>
+                            <option value="6">Groupe 6</option>
+                            <option value="7">Groupe 7</option>
+                            <option value="8">Groupe 8</option>
+                            <option value="9">Groupe 9</option>
+                            <option value="10">Groupe 10</option>
+                            <option value="11">Groupe 11</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="whatsapp">Numéro WhatsApp *</label>
+                        <input type="tel" id="whatsapp" required placeholder="+228XXXXXXXXX">
+                    </div>
+
+                    <button type="button" class="btn" onclick="submitStudentForm()">
+                        Continuer vers la vérification →
+                    </button>
+                </form>
+            </div>
+
+            <!-- TAB 2: SECRET VERIFICATION -->
+            <div id="verify" class="tab-content">
+                <h2 style="margin-bottom: 20px; font-size: 22px; color: #0F1F3D;">Mot secret</h2>
+                
+                <div id="verify-message" class="hidden"></div>
+
+                <div class="form-group">
+                    <label for="secret">Entrez le mot secret donné en classe *</label>
+                    <input type="text" id="secret" class="secret-input" placeholder="••••••" required>
+                </div>
+
+                <button type="button" class="btn" onclick="verifySecret()">
+                    Vérifier le mot secret
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="switchTab('student')">
+                    ← Revenir
+                </button>
+            </div>
+
+            <!-- TAB 3: QUIZ -->
+            <div id="access" class="tab-content">
+                <h2 style="margin-bottom: 20px; font-size: 22px; color: #0F1F3D;">Quiz de vérification</h2>
+                <p style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                    Répondez correctement à au moins 2 questions sur 3 pour continuer.
+                </p>
+
+                <div id="quiz-message" class="hidden"></div>
+                <div id="quiz-container"></div>
+
+                <button type="button" class="btn" onclick="submitQuiz()" style="margin-top: 20px;">
+                    Soumettre mes réponses
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="switchTab('verify')">
+                    ← Revenir
+                </button>
+            </div>
+
+            <!-- TAB 4: ADMIN -->
+            <div id="admin" class="tab-content">
+                <h2 style="margin-bottom: 20px; font-size: 22px; color: #0F1F3D;">Dashboard Administrateur</h2>
+
+                <div id="admin-login-form" class="admin-login">
+                    <div class="form-group">
+                        <label for="adminPassword">Mot de passe administrateur</label>
+                        <input type="password" id="adminPassword" placeholder="••••••••">
+                    </div>
+                    <button type="button" class="btn" onclick="loginAdmin()">
+                        Se connecter
+                    </button>
+                </div>
+
+                <div id="admin-dashboard" class="hidden">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <div style="flex: 1; margin-right: 10px;">
+                            <div style="background: #e8f4f8; padding: 15px; border-radius: 6px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: 700; color: #0F1F3D;" id="stat-total">0</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 5px;">Demandes totales</div>
+                            </div>
+                        </div>
+                        <div style="flex: 1; margin-right: 10px;">
+                            <div style="background: #fff3cd; padding: 15px; border-radius: 6px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: 700; color: #856404;" id="stat-pending">0</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 5px;">En attente</div>
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="background: #d4edda; padding: 15px; border-radius: 6px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: 700; color: #155724;" id="stat-approved">0</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 5px;">Approuvées</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" onclick="logoutAdmin()">
+                        Déconnexion
+                    </button>
+
+                    <div style="margin-top: 20px; overflow-x: auto;">
+                        <table class="admin-table" id="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Groupe</th>
+                                    <th>Score</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body">
+                                <tr><td colspan="5" style="text-align: center; padding: 30px;">Aucune demande pour le moment</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== CONFIGURATION ==========
+        const ADMIN_PWD = "WJ2026admin"; // À CHANGER après test
+        const SECRET = "SOWAH";
+        const CMBOT_KEY = "VOTRE_CLE_API"; // À REMPLACER
+        const WA_NUM = "22891195432";
+        const KEY_PREFIX = "WJ";
+
+        // ========== BASE DE DONNÉES ÉTUDIANTS ==========
+        const STUDENTS = [
+            { id: 1, nom: "AFANVI", prenom: "Afi Vénissa", groupe: 1 },
+            { id: 2, nom: "AKOUETE", prenom: "Adakou Bienvenue", groupe: 1 },
+            { id: 3, nom: "ANI", prenom: "Brénam Ruth", groupe: 1 },
+            { id: 4, nom: "BADA", prenom: "Abla Atsoupé", groupe: 1 },
+            { id: 5, nom: "DJADOU", prenom: "Bénedicta Mayor", groupe: 1 },
+            { id: 6, nom: "DOGBE", prenom: "Dassen Ayaba", groupe: 1 },
+            { id: 7, nom: "EDOH", prenom: "Cynthia Kouami", groupe: 1 },
+            { id: 8, nom: "ETTEY-EKLOU", prenom: "Kevin Régina-Pacis", groupe: 1 },
+            { id: 9, nom: "LALI", prenom: "A. M. Essoham Landry", groupe: 1 },
+            { id: 10, nom: "SONGA DJESSOU", prenom: "Maria Christina Antoinetta", groupe: 1 },
+            // À compléter avec les 108 autres étudiants
+        ];
+
+        // ========== QUESTIONS QUIZ ==========
+        const QUIZ_QUESTIONS = [
+            {
+                id: 1,
+                question: "What is the capital of Togo?",
+                options: ["Accra", "Lomé", "Dakar"],
+                correct: 1
+            },
+            {
+                id: 2,
+                question: "Which language is officially spoken in Togo?",
+                options: ["English", "French", "Spanish"],
+                correct: 1
+            },
+            {
+                id: 3,
+                question: "What is the official currency of Togo?",
+                options: ["Franc CFA", "Pound", "Euro"],
+                correct: 0
+            },
+            {
+                id: 4,
+                question: "What does ISICA stand for?",
+                options: [
+                    "Institut Supérieur d'Informatique et de Communication Appliquée",
+                    "International System of Information Communication",
+                    "Institute of Superior Information and Communications"
+                ],
+                correct: 0
+            },
+            {
+                id: 5,
+                question: "In which year was ISICA founded?",
+                options: ["2010", "2015", "2005"],
+                correct: 1
+            }
+        ];
+
+        // ========== FONCTIONS PRINCIPALES ==========
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showMessage(elementId, message, type) {
+            const msgEl = document.getElementById(elementId);
+            msgEl.className = `status-message status-${type}`;
+            msgEl.textContent = message;
+            msgEl.classList.remove('hidden');
+        }
+
+        function hideMessage(elementId) {
+            document.getElementById(elementId).classList.add('hidden');
+        }
+
+        // ========== ÉTAPE 1: FORMULAIRE ÉTUDIANT ==========
+        function submitStudentForm() {
+            const nom = document.getElementById('nom').value.trim().toUpperCase();
+            const prenom = document.getElementById('prenom').value.trim();
+            const groupe = parseInt(document.getElementById('groupe').value);
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+
+            if (!nom || !prenom || !groupe || !whatsapp) {
+                showMessage('student-message', '❌ Veuillez remplir tous les champs', 'error');
+                return;
+            }
+
+            // Vérifier si l'étudiant existe
+            const student = STUDENTS.find(s => 
+                s.nom.toUpperCase() === nom && 
+                s.groupe === groupe
+            );
+
+            if (!student) {
+                showMessage('student-message', '❌ Vous n\'avez pas été trouvé dans la base de données. Vérifiez votre nom et votre groupe.', 'error');
+                return;
+            }
+
+            // Sauvegarder les infos
+            localStorage.setItem('currentStudent', JSON.stringify({
+                id: student.id,
+                nom: nom,
+                prenom: prenom,
+                groupe: groupe,
+                whatsapp: whatsapp
+            }));
+
+            showMessage('student-message', '✅ Informations vérifiées! Passez à l\'étape suivante.', 'success');
+            setTimeout(() => switchTab('verify'), 1000);
+        }
+
+        // ========== ÉTAPE 2: MOT SECRET ==========
+        function verifySecret() {
+            const secret = document.getElementById('secret').value.trim().toUpperCase();
+
+            if (!secret) {
+                showMessage('verify-message', '❌ Veuillez entrer le mot secret', 'error');
+                return;
+            }
+
+            if (secret !== SECRET) {
+                showMessage('verify-message', '❌ Mot secret incorrect', 'error');
+                return;
+            }
+
+            showMessage('verify-message', '✅ Mot secret correct! Passez au quiz.', 'success');
+            setTimeout(() => {
+                generateQuiz();
+                switchTab('access');
+            }, 1000);
+        }
+
+        // ========== ÉTAPE 3: QUIZ ==========
+        function generateQuiz() {
+            const shuffled = QUIZ_QUESTIONS.sort(() => Math.random() - 0.5).slice(0, 3);
+            localStorage.setItem('currentQuiz', JSON.stringify(shuffled));
+
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            shuffled.forEach((q, idx) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.style.marginBottom = '25px';
+                questionDiv.innerHTML = `
+                    <h3 style="font-size: 16px; margin-bottom: 12px; color: #333;">
+                        ${idx + 1}. ${q.question}
+                    </h3>
+                `;
+
+                q.options.forEach((option, optIdx) => {
+                    const label = document.createElement('label');
+                    label.className = 'quiz-option';
+                    label.innerHTML = `
+                        <input type="radio" name="q${q.id}" value="${optIdx}">
+                        <span>${option}</span>
+                    `;
+                    questionDiv.appendChild(label);
+                });
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            const currentStudent = JSON.parse(localStorage.getItem('currentStudent'));
+            const currentQuiz = JSON.parse(localStorage.getItem('currentQuiz'));
+
+            if (!currentStudent || !currentQuiz) {
+                showMessage('quiz-message', '❌ Erreur: données manquantes', 'error');
+                return;
+            }
+
+            let score = 0;
+            currentQuiz.forEach(q => {
+                const answer = document.querySelector(`input[name="q${q.id}"]:checked`);
+                if (answer && parseInt(answer.value) === q.correct) {
+                    score++;
+                }
+            });
+
+            if (score < 2) {
+                showMessage('quiz-message', `❌ Vous avez obtenu ${score}/3. Minimum 2 réponses correctes requises.`, 'error');
+                return;
+            }
+
+            // Enregistrer la demande
+            const requests = JSON.parse(localStorage.getItem('accessRequests') || '[]');
+            const request = {
+                id: Date.now(),
+                ...currentStudent,
+                score: score,
+                status: 'pending',
+                timestamp: new Date().toISOString()
+            };
+            requests.push(request);
+            localStorage.setItem('accessRequests', JSON.stringify(requests));
+
+            showMessage('quiz-message', `✅ Excellent! Score: ${score}/3. Votre demande a été envoyée à l'administrateur.`, 'success');
+            
+            // Notifier l'admin (simule WhatsApp)
+            console.log(`📱 Notification admin: ${currentStudent.nom} - Groupe ${currentStudent.groupe} - Score ${score}/3`);
+
+            setTimeout(() => {
+                localStorage.removeItem('currentStudent');
+                localStorage.removeItem('currentQuiz');
+                document.getElementById('studentForm').reset();
+                switchTab('student');
+            }, 2000);
+        }
+
+        // ========== ADMIN DASHBOARD ==========
+        function loginAdmin() {
+            const pwd = document.getElementById('adminPassword').value;
+
+            if (pwd !== ADMIN_PWD) {
+                alert('❌ Mot de passe incorrect');
+                return;
+            }
+
+            document.getElementById('admin-login-form').classList.add('hidden');
+            document.getElementById('admin-dashboard').classList.remove('hidden');
+            loadAdminDashboard();
+        }
+
+        function logoutAdmin() {
+            document.getElementById('admin-dashboard').classList.add('hidden');
+            document.getElementById('admin-login-form').classList.remove('hidden');
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function loadAdminDashboard() {
+            const requests = JSON.parse(localStorage.getItem('accessRequests') || '[]');
+            
+            const total = requests.length;
+            const pending = requests.filter(r => r.status === 'pending').length;
+            const approved = requests.filter(r => r.status === 'approved').length;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-pending').textContent = pending;
+            document.getElementById('stat-approved').textContent = approved;
+
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = '';
+
+            if (requests.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 30px;">Aucune demande pour le moment</td></tr>';
+                return;
+            }
+
+            requests.forEach(req => {
+                const row = document.createElement('tr');
+                const badge = `<span class="badge badge-${req.status}">${req.status === 'pending' ? 'En attente' : req.status === 'approved' ? 'Approuvée' : 'Rejetée'}</span>`;
+                
+                row.innerHTML = `
+                    <td><strong>${req.nom}</strong><br><small style="color: #999;">${req.prenom}</small></td>
+                    <td>Groupe ${req.groupe}</td>
+                    <td>${req.score}/3</td>
+                    <td>${badge}</td>
+                    <td>
+                        <div class="action-buttons">
+                            ${req.status === 'pending' ? `
+                                <button class="btn btn-small btn-approve" onclick="approveRequest(${req.id})">✓ Approuver</button>
+                                <button class="btn btn-small btn-reject" onclick="rejectRequest(${req.id})">✗ Rejeter</button>
+                            ` : req.status === 'approved' ? `
+                                <button class="btn btn-small btn-whatsapp" onclick="sendKeyViaWhatsApp('${req.nom}', '${req.whatsapp}', '${req.key}')">📱 WhatsApp</button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function approveRequest(requestId) {
+            const requests = JSON.parse(localStorage.getItem('accessRequests') || '[]');
+            const request = requests.find(r => r.id === requestId);
+
+            if (!request) return;
+
+            // Générer une clé
+            const initials = (request.nom.charAt(0) + request.prenom.charAt(0)).toUpperCase();
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let random = "";
+            for (let i = 0; i < 6; i++) {
+                random += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            const key = `${KEY_PREFIX}-${initials}${random}`;
+
+            request.status = 'approved';
+            request.key = key;
+            request.approvedAt = new Date().toISOString();
+
+            const index = requests.findIndex(r => r.id === requestId);
+            requests[index] = request;
+            localStorage.setItem('accessRequests', JSON.stringify(requests));
+
+            console.log(`✅ Demande approuvée: ${request.nom} - Clé: ${key}`);
+            loadAdminDashboard();
+        }
+
+        function rejectRequest(requestId) {
+            if (!confirm('Êtes-vous sûr de vouloir rejeter cette demande?')) return;
+
+            const requests = JSON.parse(localStorage.getItem('accessRequests') || '[]');
+            const request = requests.find(r => r.id === requestId);
+
+            if (request) {
+                request.status = 'rejected';
+                request.rejectedAt = new Date().toISOString();
+
+                const index = requests.findIndex(r => r.id === requestId);
+                requests[index] = request;
+                localStorage.setItem('accessRequests', JSON.stringify(requests));
+
+                console.log(`❌ Demande rejetée: ${request.nom}`);
+                loadAdminDashboard();
+            }
+        }
+
+        function sendKeyViaWhatsApp(nom, whatsapp, key) {
+            const message = `Bonjour ${nom},\n\nVotre demande a été approuvée! 🎉\n\nVoici votre clé d'accès:\n${key}\n\nRendez-vous sur le site et entrez cette clé pour accéder au cours.`;
+            
+            const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
